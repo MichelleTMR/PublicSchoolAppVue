@@ -7,7 +7,6 @@ export const useUserStore = defineStore('auth', () => {
     const state = reactive({
         userParent: {},
         userStudents: [],
-        userSchools: [],
     })
     //difine state variables
     // const userParent = ref()

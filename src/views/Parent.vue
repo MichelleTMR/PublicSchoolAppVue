@@ -5,44 +5,34 @@ import { useUserStore } from '@/stores/usersstore'
 
 const userStore = useUserStore();
 console.log(userStore.state.userParent)
+let studentArray = userStore.state.userStudents
 
-// let schoolArray = userStore.state.userSchools
+let fetchUrl = "http://localhost:3000/students?"
+userStore.state.userParent.userRoles.forEach((role) => {
+    fetchUrl += `studentId=${role.student_id}&`
+})
 
-// function getSchools() {
-//     try {
-//         fetch("http://localhost:3000/schools",
-//             {
-//                 headers: { "Content-Type": "application/json" },
-//                 body: JSON.stringify({
-//                     "school": userStore.state.userParent
-//                 }
-//                 ),
-//                 method: "POST"
-//             })
-//             .then(response => {
-//                 return response.json()
+function getStudentProfiles() {
+    try {
+        fetch(fetchUrl,
+            {
+                headers: { "Content-Type": "application/json" },
+                method: "GET"
+            })
+            .then(response => {
+                return response.json()
 
-//             }).then(json => {
-//                 userStore.state.userSchools.push(...json)
-//             })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+            }).then(json => {
+                userStore.state.userStudents.push(...json)
+            })
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-// if (schoolArray.length == 0) getSchools()
+if (studentArray.length == 0) getStudentProfiles()
 
-
-
-
-
-
-
-
-
-
-
-
+console.log(studentArray)
 
 </script>
 
@@ -63,44 +53,52 @@ console.log(userStore.state.userParent)
             <div class="main">
                 <div class="calendarBar">
                     <img id="calendar-image" src="../assets/Calendar-image.png">
-                    <div style="font-style: bold;">School Notifications</div>
-                    <div class="notification">
-                        <p class="alert-title">Norton Elementary</p>
-                        <p>Tuesday, January 23</p>
-                        <p>8:40am Donuts with Grownups - Gibson</p>
-                        <p>5:00pm Basketball Practice</p>
-                        <p> AM Drama Club</p>
-                    </div>
-                    <div class="notification">
-                        <p class="alert-title">Kammerer Middle</p>
-                        <p>Tuesday, January 23</p>
-                        <p>Robotics Club First Day!</p>
-                        <p>8:30am ACCESS Testing</p>
-                        <p>4:30pm Cheer Practice</p>
-                        <p>April 1-5 No school, Spring Break</p>
-                    </div>
-                    <div class="notification">
-                        <p class="alert-title">Ballard High School</p>
-                        <p>Monday, January 29</p>
-                        <p>3:30pm Chess Club</p>
-                        <p>Wednesday, January 31</p>
-                        <p>6:30pm Winter Play "Alice in Wonderland"</p>
-                        <p>Monday, February 5</p>
-                        <p>7:00pm Jazz Concert</p>
+                    <div>
+                        <div style="font-weight: bold; font-size: 40px;">School Notifications</div>
+                        <div class="notification">
+                            <div class="alertTitle">dxlvkjzxlvlementary</div>
+                            <p>Tuesday, January 23</p>
+                            <p>8:40am Donuts with Grownups - Gibson</p>
+                            <p>5:00pm Basketball Practice</p>
+                            <p>AM Drama Club</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="content">
-
+                    <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Your Students</div>
+                    <div class="student-container">
+                        <div class="student-content" v-for="student in userStore.state.userStudents"
+                            @click="$router.push(`/student/${student.student_id}`)">
+                            <h1>{{ student.student_name }}</h1>
+                            <h4>{{ student.student_birthdate }}</h4>
+                            <h4>{{ student.school.school_name }} {{ student.school.school_type }}</h4>
+                        </div>
+                    </div>
+                    <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Your Schools</div>
+                    <div class="school-container">
+                        <div class="school-content" v-for="student in userStore.state.userStudents"
+                            @click="$router.push(`/student/${student.school.school_id}`)">
+                            <img class="school-image" :src="student.school.school_image">
+                            <h4>{{ student.school.school_name }} {{ student.school.school_type }}</h4>
+                            <h4>{{ student.school.phone_number}}</h4>
+                            <h4>{{ student.school.school_address }}</h4>
+                            <h4>{{ student.school.school_hours }}</h4>
+                        </div>
+                    </div>
+                    <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Buses</div>
+                    <div class="buses-container">
+                        <div class="buses-content" v-for="student in userStore.state.userStudents"
+                            @click="$router.push(`/student/${student.bus.buses_id}`)">
+                            <img class="buses-image" src="../assets/bus-1.png">
+                            <h4>Driver: {{ student.bus.driver }}</h4>
+                            <h4>Bus#{{ student.bus.bus_number}}</h4>
+                            <h4>Departure Time: {{ student.bus.pm_departure_time }}</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div>
-                <h1>Students</h1>
-            </div>
-            <div>
-                <h1>Buses</h1>
-            </div>
-
+            
 
 
             <div>
@@ -116,18 +114,18 @@ console.log(userStore.state.userParent)
 </template>
 
 <style scoped>
-.alert-title{
-    /* display: flex;
-    align-items: center; */
-    font-style: bold;
+.alertTitle {
+    font-size: 40px;
+    font-weight: bold;
 }
+
 .wrapper {
     position: relative;
     height: 100vh;
     margin-left: 75px;
     margin-right: 75px;
-    overflow-y: scroll;
 }
+
 .container-background {
     display: flex;
     justify-content: center;
@@ -169,33 +167,70 @@ console.log(userStore.state.userParent)
     justify-content: end;
     padding: 16px;
 }
+
 .main {
     display: flex;
 }
 
 .calendarBar {
-    /* background-color: rgb(243, 240, 188); */
     width: 25%;
     padding: 16px;
     height: 60%;
 }
 
-#calendar-image{
+#calendar-image {
     height: 10%;
     width: 100%;
     border-radius: 20px;
 }
 
 .notification {
-    background-color: beige;
+    background-color: rgb(252, 252, 254);
     border-radius: 10px;
     border: 2px solid;
     margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-style: bold;
+}
+.student-content{
+    background-color: antiquewhite;
+    border-radius: 10px;
+    padding: 16px;
+}
+.student-container{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-left: 16px;
+}
+.school-content{
+    background-color: aqua;
+    border-radius: 10px;
+    padding: 16px;
+}
+.school-container{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+.school-image{
+    height: 200px;
+    width: 300px;
 }
 
-
+.buses-image{
+    height: 200px;
+    width: 300px;
+}
+.buses-content{
+    background-color: beige;
+    border-radius: 10px;
+    padding: 16px;
+}
+.buses-container{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
 </style>

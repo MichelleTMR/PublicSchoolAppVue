@@ -1,32 +1,7 @@
 <script setup>
 import { useUserStore } from '@/stores/usersstore'
 
-const userStore = useUserStore();
-let studentArray = userStore.state.userStudents
 
-function getStudentsProfile() {
-    try {
-        fetch("http://localhost:3000/students",
-            {
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    "students": userStore.state.userParent.userRoles
-                }
-                ),
-                method: "POST"
-            })
-            .then(response => {
-                return response.json()
-
-            }).then(json => {
-                userStore.state.userStudents.push(...json)
-            })
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-if(studentArray.length == 0) getStudentsProfile()
 
 </script>
 
