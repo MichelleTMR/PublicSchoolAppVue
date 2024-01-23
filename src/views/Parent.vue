@@ -42,71 +42,71 @@ console.log(studentArray)
             <img class="background-pic" src="../assets/ParentStudentbackground.png" />
         </div>
         <div class="container">
-            <div class="welcomeBar">
+
+            <div class="sideBar">
+                <RouterLink to="/addresschange">Address Change Request</RouterLink>
+            </div>
+
+            <!-- <div class="welcomeBar">
                 <div class="alert">All Jefferson County schools closed for snow day!!</div>
                 <div class="welcome">
+
+                </div>
+            </div> -->
+
+            <div class="main">
+                <div class="header">
                     <h1>Hi, {{ userStore.state.userParent.userProfile.name }}!!</h1>
                     <img id="profile-image" :src=userStore.state.userParent.userProfile.profile_image />
                 </div>
-            </div>
+                <div class="information">
+                    <div class="">
+                        <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Your Students</div>
+                        <div class="student-container">
+                            <div class="student-content" v-for="student in userStore.state.userStudents"
+                                @click="$router.push(`/student/${student.student_id}`)">
+                                <h1>{{ student.student_name }}</h1>
+                                <h4>{{ student.student_birthdate }}</h4>
+                                <h4>{{ student.school.school_name }} {{ student.school.school_type }}</h4>
+                            </div>
+                        </div>
+                        <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Your Schools</div>
+                        <div class="school-container">
+                            <div class="school-content" v-for="student in userStore.state.userStudents"
+                                @click="$router.push(`/student/${student.school.school_id}`)">
+                                <img class="school-image" :src="student.school.school_image">
+                                <h4>{{ student.school.school_name }} {{ student.school.school_type }}</h4>
+                                <h4>{{ student.school.phone_number }}</h4>
+                                <h4>{{ student.school.school_address }}</h4>
+                                <h4>{{ student.school.school_hours }}</h4>
+                            </div>
+                        </div>
+                        <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Buses</div>
+                        <div class="buses-container">
+                            <div class="buses-content" v-for="student in userStore.state.userStudents"
+                                @click="$router.push(`/student/${student.bus.buses_id}`)">
+                                <img class="buses-image" src="../assets/bus-1.png">
+                                <h4>Driver: {{ student.bus.driver }}</h4>
+                                <h4>Bus#{{ student.bus.bus_number }}</h4>
+                                <h4>Departure Time: {{ student.bus.pm_departure_time }}</h4>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="main">
-                <div class="calendarBar">
-                    <img id="calendar-image" src="../assets/Calendar-image.png">
-                    <div>
-                        <div style="font-weight: bold; font-size: 40px;">School Notifications</div>
-                        <div class="notification">
-                            <div class="alertTitle">dxlvkjzxlvlementary</div>
-                            <p>Tuesday, January 23</p>
-                            <p>8:40am Donuts with Grownups - Gibson</p>
-                            <p>5:00pm Basketball Practice</p>
-                            <p>AM Drama Club</p>
+                    <div class="calendarBar">
+                        <img id="calendar-image" src="../assets/Calendar-image.png">
+                        <div>
+                            <div style="font-weight: bold; font-size: 40px;">School Notifications</div>
+                            <div class="notification">
+                                <div class="alertTitle">dxlvkjzxlvlementary</div>
+                                <p>Tuesday, January 23</p>
+                                <p>8:40am Donuts with Grownups - Gibson</p>
+                                <p>5:00pm Basketball Practice</p>
+                                <p>AM Drama Club</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="content">
-                    <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Your Students</div>
-                    <div class="student-container">
-                        <div class="student-content" v-for="student in userStore.state.userStudents"
-                            @click="$router.push(`/student/${student.student_id}`)">
-                            <h1>{{ student.student_name }}</h1>
-                            <h4>{{ student.student_birthdate }}</h4>
-                            <h4>{{ student.school.school_name }} {{ student.school.school_type }}</h4>
-                        </div>
-                    </div>
-                    <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Your Schools</div>
-                    <div class="school-container">
-                        <div class="school-content" v-for="student in userStore.state.userStudents"
-                            @click="$router.push(`/student/${student.school.school_id}`)">
-                            <img class="school-image" :src="student.school.school_image">
-                            <h4>{{ student.school.school_name }} {{ student.school.school_type }}</h4>
-                            <h4>{{ student.school.phone_number}}</h4>
-                            <h4>{{ student.school.school_address }}</h4>
-                            <h4>{{ student.school.school_hours }}</h4>
-                        </div>
-                    </div>
-                    <div style="font-weight: bold; font-size: 40px; padding-left: 16px;">Buses</div>
-                    <div class="buses-container">
-                        <div class="buses-content" v-for="student in userStore.state.userStudents"
-                            @click="$router.push(`/student/${student.bus.buses_id}`)">
-                            <img class="buses-image" src="../assets/bus-1.png">
-                            <h4>Driver: {{ student.bus.driver }}</h4>
-                            <h4>Bus#{{ student.bus.bus_number}}</h4>
-                            <h4>Departure Time: {{ student.bus.pm_departure_time }}</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-
-
-            <div>
-
-                <h1>{{ userStore.state.userParent.userProfile.birthdate }}</h1>
-                <h1>{{ userStore.state.userParent.userProfile.address }}</h1>
-                <h1>{{ userStore.state.userParent.userProfile.phone_number }}</h1>
-
             </div>
         </div>
 
@@ -138,6 +138,7 @@ console.log(studentArray)
 
 .container {
     position: absolute;
+    display: flex;
     top: 0%;
     left: 0%;
     /* background-color: rgb(245, 236, 186); */
@@ -168,8 +169,14 @@ console.log(studentArray)
     padding: 16px;
 }
 
-.main {
+.information {
     display: flex;
+}
+
+.sideBar {
+    width: 25%;
+    min-height: 100vh;
+    background-color: rgb(249, 238, 151);
 }
 
 .calendarBar {
@@ -193,44 +200,50 @@ console.log(studentArray)
     flex-direction: column;
     align-items: center;
 }
-.student-content{
+
+.student-content {
     background-color: antiquewhite;
     border-radius: 10px;
     padding: 16px;
 }
-.student-container{
+
+.student-container {
     display: flex;
     flex-direction: row;
     gap: 16px;
     padding-left: 16px;
 }
-.school-content{
+
+.school-content {
     background-color: aqua;
     border-radius: 10px;
     padding: 16px;
 }
-.school-container{
+
+.school-container {
     display: flex;
     flex-direction: row;
     gap: 16px;
 }
-.school-image{
+
+.school-image {
     height: 200px;
     width: 300px;
 }
 
-.buses-image{
+.buses-image {
     height: 200px;
     width: 300px;
 }
-.buses-content{
+
+.buses-content {
     background-color: beige;
     border-radius: 10px;
     padding: 16px;
 }
-.buses-container{
+
+.buses-container {
     display: flex;
     flex-direction: row;
     gap: 16px;
-}
-</style>
+}</style>

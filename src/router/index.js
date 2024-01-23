@@ -4,6 +4,7 @@ import LoginVue from '@/views/Login.vue'
 import ParentVue from '@/views/Parent.vue'
 import StudentVue from '@/views/Student.vue'
 import StudentProfileVue from '@/views/StudentProfile.vue'
+import AddressChangeVue from '@/views/AddressChange.vue'
 
 
 const router = createRouter({
@@ -41,6 +42,11 @@ const router = createRouter({
       path: '/student/:id',
       name: 'studentprofile',
       component: StudentProfileVue
+    },
+    {
+      path: '/addresschange',
+      name: 'addresschange',
+      component: AddressChangeVue
     }
   ]
 })
