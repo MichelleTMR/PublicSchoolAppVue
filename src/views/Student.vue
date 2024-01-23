@@ -37,9 +37,6 @@ if(studentArray.length == 0) getStudentsProfile()
             <img class="background-pic" src="../assets/ParentStudentbackground.png" />
         </div>
         <div class="container">
-
-            <RouterLink to="/updateinfo">Update Student Profile</RouterLink>   <!-- update profile info page -->
-            <!-- <RouterLink v-if="roles.include('parent1')" to="/AddressRequest">Address Request</RouterLink>   address request info page -->
             <div v-for="student in userStore.state.userStudents" class="student-content" @click="$router.push(`/student/${student.student_id}`)">
             <h1>{{ student.student_name }}</h1>
         </div>

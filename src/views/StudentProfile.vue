@@ -9,8 +9,8 @@ const studentId = route.params.id
 
 const studentInfo = () => {
     const students = userStore.state.userStudents
-    for(let i=0; i < students.length; i++){
-        if(studentId == students[i].student_id){
+    for (let i = 0; i < students.length; i++) {
+        if (studentId == students[i].student_id) {
             return students[i]
         }
     }
@@ -19,32 +19,64 @@ const studentInfo = () => {
 let student = studentInfo()
 console.log(student)
 
+
+function canEditStudent() {
+
+    let roles = userStore.state.userParent.userRoles
+    let roleType
+    roles.forEach(element => {
+        if (studentId == element.student_id) {
+            roleType = element.role_id
+        }
+    });
+    if (roleType == "role 2") {
+        return true
+    } else {
+        return false
+    }
+}
+
+async function getFile() {
+    const [fileHandle] = await window.showOpenFilePicker();
+    const file = await fileHandle.getFile(); 
+    console.log(file)
+    const img = document.querySelector("#image")
+    const url = URL.createObjectURL(file)
+    img.setAttribute("src", url)
+    //return file;
+}
+
 </script>
 
 <template>
-<div class="wrapper"> 
+    <div class="wrapper">
         <div class="container-background">
             <img class="background-pic" src="../assets/blankbackground.png" />
+            <div class="container">
+                <!-- <RouterLink v-if="roles.include('parent1')" to="/AddressRequest">Address Request</RouterLink>   address request info page -->
+
+                <h1>{{ student.student_name }}</h1>
+                <h1>Student's Bus ID: {{ student.bus_id }}</h1>
+                <h1>{{ student.grade }}</h1>
+                <h1>{{ student.student_birthdate }}</h1>
+                <h1>{{ student.age }}</h1>
+                <img id="image" :src=student.student_picture>
+                <button v-if="canEditStudent()" @click="getFile()">Change Image</button>
+            </div>
         </div>
-        <div class="container">
-            <h1>{{ student.student_name }}</h1>
-            <h1>Student's Bus ID: {{ student.bus_id }}</h1>
-            <h1>{{ student.grade }}</h1>
-            <h1>{{ student.student_birthdate }}</h1>
-            <h1>{{ student.age}}</h1>
-            <img :src=student.student_picture> 
-    
+        <div>
+
         </div>
 
     </div>
-
 </template>
 
 <style scoped>
-.wrapper{
+.wrapper {
     position: relative;
     height: 100vh;
 }
+
 .container-background {
     display: flex;
     justify-content: center;
@@ -54,11 +86,12 @@ console.log(student)
     height: 100vh;
     width: auto;
 }
+
 .container {
     /* display: flex; */
     flex-direction: row;
     align-items: center;
-    justify-content: center;  
+    justify-content: center;
     gap: 50px;
     top: 0%;
     left: 7%;
