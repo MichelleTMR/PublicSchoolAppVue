@@ -25,7 +25,6 @@ function getStudentBrithdate(birthdate) {
 }
 
 function canEditStudent() {
-
     let roles = userStore.state.userParent.userRoles
     let roleType
     roles.forEach(element => {
@@ -41,13 +40,25 @@ function canEditStudent() {
 }
 
 async function getFile() {
-    const [fileHandle] = await window.showOpenFilePicker();
-    const file = await fileHandle.getFile(); 
-    console.log(file)
     const img = document.querySelector("#image")
-    const url = URL.createObjectURL(file)
-    img.setAttribute("src", url)
-    //return file;
+
+    let fileHandle
+    [fileHandle] = await window.showOpenFilePicker();
+    let fileToLoad = await fileHandle.getFile()
+    console.log("file to load", fileToLoad)
+
+    reader(fileToLoad, (result) => {
+        console.log("RESULT", result)
+        img.src = result
+    })
+
+}
+
+function reader(file, callback) {
+  const fr = new FileReader();
+  fr.onload = () => callback(null, fr.result);
+  fr.onerror = (err) => callback(err);
+  fr.readAsDataURL(file);
 }
 
 </script>

@@ -2,7 +2,7 @@
 import { ref, reactive, defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/usersstore'
-// import url('https://fonts.googleapis.com/css?family=Libre+Caslon+Text:400,700&display=swap');
+
 
 const userStore = useUserStore();
 console.log(userStore.state.userParent)
@@ -90,10 +90,21 @@ function closeNav() {
 <template>
     <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-  <RouterLink to="/addresschange">Address Change Request</RouterLink>
+  
   <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+  <a href="#">About</a>
+  <RouterLink to="/addresschange">Address Change</RouterLink>
+  <a href="#">Learning</a>
+  <a href="#">Support</a>
+  <a href="#">Activities</a>
+  <a href="#">News</a>
+  <a>Contact Us: </a>
+<a>JCPS Call Center
+(502) 313-HELP (4357)
+
+jcps.help@jefferson.kyschools.us
+
+More Contact Options</a>
 
 </div>
 
@@ -119,7 +130,7 @@ function closeNav() {
                 <div class="header">
                     <img style="height:40px;" @click="openNav()" src="../assets/hamburgericon.svg"/>
                     <div style="display: flex;">
-                    <h1>Hi, {{ userStore.state.userParent.userProfile.name }}!!</h1>
+                    <h1 style="font-family: 'Concert One', sans-serif;">Hi, {{ userStore.state.userParent.userProfile.name }}!!</h1>
                     <img id="profile-image" :src=userStore.state.userParent.userProfile.profile_image />
                     </div>
                 </div>
@@ -161,7 +172,7 @@ function closeNav() {
                     </div>
 
                     <div class="calendarBar">
-                        <img id="calendar-image" src="../assets/Calendar-image.png">
+                        <img id="calendar-image" src="../assets/calendar3.webp">
                         <div>
                             <div id="schoolnotifications" style="font-weight: bold; font-size: 30px;">School Notifications</div>
                             <div class="notification">
@@ -189,6 +200,11 @@ function closeNav() {
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+
+div > * {
+  font-family: 'Concert One', sans-serif;
+}
 .alertTitle {
     font-size: 40px;
     font-weight: bold;
@@ -365,7 +381,7 @@ function closeNav() {
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #111; /* Black*/
+  background-color: #f4d796; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */

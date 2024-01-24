@@ -22,7 +22,7 @@ function login() {
             <img class="background-pic" src="../assets/2.png" />
         </div>
         <div class="container">
-            <h1 id="login"> Login</h1>
+            <h1> Login</h1>
             <input class="textbox" v-model="email" type="text" placeholder="parentportal@email.com"/>
             <input class="textbox" v-model="password" type="password" placeholder="password">
             <button id="loginbutton" @click="login">Login</button>
@@ -32,6 +32,11 @@ function login() {
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+
+div > * {
+  font-family: 'Concert One', sans-serif;
+}
 .wrapper {
     position: relative;
     height: 100vh;
@@ -58,10 +63,6 @@ function login() {
     right: 45%;
 }
 
-#login {
-    height: 1rem;
-    width: 1rem;
-}
 .textbox{
     width: 15rem;
     height: 2.2rem;

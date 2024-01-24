@@ -7,6 +7,7 @@ import {RouterView} from 'vue-router';
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap')
 
 
 </style>
