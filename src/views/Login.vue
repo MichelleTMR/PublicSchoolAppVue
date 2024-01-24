@@ -22,12 +22,11 @@ function login() {
             <img class="background-pic" src="../assets/2.png" />
         </div>
         <div class="container">
-            <img id="logo"
-                src="https://static.vecteezy.com/system/resources/thumbnails/002/478/053/small_2x/welcome-back-label-lettering-with-ribbon-frame-free-vector.jpg" />
-            <input v-model="email" type="text" placeholder="email" />
-            <input v-model="password" type="text" placeholder="password">
-            <button @click="login">Login</button>
-            <RouterLink to="/register">Register</RouterLink>
+            <h1 id="login"> Login</h1>
+            <input class="textbox" v-model="email" type="text" placeholder="parentportal@email.com"/>
+            <input class="textbox" v-model="password" type="password" placeholder="password">
+            <button id="loginbutton" @click="login">Login</button>
+            <RouterLink to="/register">Register Here</RouterLink>
         </div>
     </div>
 </template>
@@ -59,8 +58,18 @@ function login() {
     right: 45%;
 }
 
-#logo {
-    height: 6rem;
-    widows: 6rem;
+#login {
+    height: 1rem;
+    width: 1rem;
+}
+.textbox{
+    width: 15rem;
+    height: 2.2rem;
+    border-radius: 20px;
+}
+#loginbutton{
+    width: 10rem;
+    height: 2.0rem;
+    border-radius: 10px;
 }
 </style>

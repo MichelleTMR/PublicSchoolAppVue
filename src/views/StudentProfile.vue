@@ -19,6 +19,10 @@ const studentInfo = () => {
 let student = studentInfo()
 console.log(student)
 
+function getStudentBrithdate(birthdate) {
+    let date = new Date(birthdate)
+    return date.toLocaleDateString()
+}
 
 function canEditStudent() {
 
@@ -58,7 +62,7 @@ async function getFile() {
                 <h1>{{ student.student_name }}</h1>
                 <h1>Student's Bus ID: {{ student.bus_id }}</h1>
                 <h1>{{ student.grade }}</h1>
-                <h1>{{ student.student_birthdate }}</h1>
+                <h1>{{ getStudentBrithdate(student.student_birthdate) }}</h1>
                 <h1>{{ student.age }}</h1>
                 <img id="image" :src=student.student_picture>
                 <button v-if="canEditStudent()" @click="getFile()">Change Image</button>
