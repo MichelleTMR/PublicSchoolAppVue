@@ -165,7 +165,7 @@ function closeNav() {
                                 <div class="schoolnotifications" style="font-weight: bold; font-size: 40px; ">Buses</div>
                                 <div class="buses-container">
                                     <div class="buses-content" v-for="bus in studentbuses"
-                                        @click="$router.push(`/student/${bus.buses_id}`)">
+                                        @click="$router.push(`/buses/${bus.buses_id}`)">
                                         <img class="buses-image" src="../assets/bus-1.png">
                                         <div class="studentschoolsbuses">Bus#{{ bus.bus_number }}</div>
                                         <div>Departure Time: {{ bus.pm_departure_time }}</div>

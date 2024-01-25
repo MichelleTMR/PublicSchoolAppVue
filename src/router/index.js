@@ -5,6 +5,7 @@ import ParentVue from '@/views/Parent.vue'
 import StudentProfileVue from '@/views/StudentProfile.vue'
 import AddressChangeVue from '@/views/AddressChange.vue'
 import SchoolInfoVue from '@/views/SchoolInfo.vue'
+import BusesInfoVue from '@/views/BusesInfo.vue'
 
 
 const router = createRouter({
@@ -40,6 +41,11 @@ const router = createRouter({
       name: 'school',
       component: SchoolInfoVue
     },
+    {
+      path: '/buses/:id',
+      name: 'busesinfo',
+      component: BusesInfoVue
+    }
   ]
 });
 
