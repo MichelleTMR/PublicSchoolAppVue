@@ -39,7 +39,7 @@ const router = createRouter({
       path: '/school/:id',
       name: 'school',
       component: SchoolInfoVue
-    }
+    },
   ]
 });
 

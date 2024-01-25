@@ -78,95 +78,100 @@ getSchools()
 
 /* Set the width of the side navigation to 250px */
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.width = "250px";
 }
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("mySidenav").style.width = "0";
 }
 </script>
 
 <template>
     <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-  
-  <a href="#">Services</a>
-  <a href="#">About</a>
-  <RouterLink to="/addresschange">Address Change</RouterLink>
-  <a href="#">Learning</a>
-  <a href="#">Support</a>
-  <a href="#">Activities</a>
-  <a href="#">News</a>
-  <a>Contact Us: </a>
-<a>JCPS Call Center
-(502) 313-HELP (4357)
+        <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
 
-jcps.help@jefferson.kyschools.us
+        <a href="#">Services</a>
+        <a href="#">About</a>
+        <RouterLink to="/addresschange">Address Change</RouterLink>
+        <a href="#">Learning</a>
+        <a href="#">Support</a>
+        <a href="#">Activities</a>
+        <a href="#">News</a>
+        <a>Contact Us: </a>
+        <a>JCPS Call Center
+            (502) 313-HELP (4357)
+            jcps.help@jefferson.kyschools.us
+            More Contact Options</a>
 
-More Contact Options</a>
-
-</div>
+    </div>
 
 
     <div class="wrapper">
         <div class="container-background">
-            <!-- <img class="background-pic" src="../assets/blankbackground.png" /> -->
         </div>
         <div class="container">
-
-            <!-- <div class="sideBar">
-                <RouterLink to="/addresschange">Address Change Request</RouterLink>
-            </div> -->
-
             <!-- <div class="welcomeBar">
                 <div class="alert">All Jefferson County schools closed for snow day!!</div>
                 <div class="welcome">
-
                 </div>
             </div> -->
-
             <div class="main">
                 <div class="header">
-                    <img style="height:40px;" @click="openNav()" src="../assets/hamburgericon.svg"/>
-                    <div style="display: flex;">
-                    <h1 style="font-family: 'Concert One', sans-serif;">Hi, {{ userStore.state.userParent.userProfile.name }}!!</h1>
-                    <img id="profile-image" :src=userStore.state.userParent.userProfile.profile_image />
+                    <img style="height:40px;" @click="openNav()" src="../assets/hamburgericon.svg" />
+                    <div style="display: flex; gap: 20px;">
+                        <div class="wrap">
+                            <div class="search">
+                                <input type="text" class="searchTerm" placeholder="What are you looking for?">
+                                <button type="submit" class="searchButton"> <img id="searchicon"
+                                        src="../assets/searchicon.png">
+                                    <i class="fa fa-search"> </i>
+                                </button>
+                            </div>
+                        </div>
+                        <h1 style="font-family: 'Concert One', sans-serif;">Hi, {{userStore.state.userParent.userProfile.name }}!!</h1>
+                        <img id="profile-image" :src=userStore.state.userParent.userProfile.profile_image />
                     </div>
                 </div>
                 <div class="information">
                     <div class="studentInformation">
-                        <div style="font-weight: bold; font-size: 40px;">Your Students</div>
+                        <div class="schoolnotifications" style="font-weight: bold; font-size: 40px;">Your Students</div>
                         <div class="student-container">
                             <div class="student-content" v-for="student in userStore.state.userStudents"
                                 @click="$router.push(`/student/${student.student_id}`)">
-                                <h4>{{ student.student_name }}</h4>
+                                <div class="studentschoolsbuses">{{ student.student_name }}</div>
+                                <img class="student-image" :src="student.student_picture">
+                                <div class="alertSubtitle">{{ student.school.school_name }} {{ student.school.school_type }}
+                                </div>
                                 <!-- <h1>{{ getStudentBrithdate(student.student_birthdate) }}</h1> -->
-                                <!-- <h4>{{ student.student_birthdate }}</h4> -->
-                                <h4>{{ student.school.school_name }} {{ student.school.school_type }}</h4>
+                                <div> DOB: {{ student.student_birthdate }}</div>
+                                <div> {{ student.grade }}</div>
+                                <div> {{ student.age }}</div>
                             </div>
                         </div>
-                        <div style="font-weight: bold; font-size: 40px;">Your Schools</div>
+                        <div class="schoolnotifications" style="font-weight: bold; font-size: 40px;">Your Schools</div>
                         <div class="school-container">
                             <div class="school-content" v-for="school in studentschools"
                                 @click="$router.push(`/school/${school.school_id}`)">
-                                <div class="schoolcard">
-                                <img class="school-image" :src="school.school_image">
-                                <div>{{ school.school_name }} {{ school.school_type }}</div>
-                                <div>{{ school.phone_number }}</div>
-                                <div>{{ school.school_address }}</div>
-                                <div>{{ school.school_hours }}</div>
+                                <div>
+                                    <img class="school-image" :src="school.school_image">
+                                    <div class="studentschoolsbuses">{{ school.school_name }} {{ school.school_type }}</div>
+                                    <div>{{ school.school_address }}</div>
+                                    <div>{{ school.school_hours }}</div>
+                                    <div>{{ school.phone_number }}</div>
                                 </div>
                             </div>
-                        </div>
-                        <div style="font-weight: bold; font-size: 40px; ">Buses</div>
-                        <div class="buses-container">
-                            <div class="buses-content" v-for="bus in studentbuses"
-                                @click="$router.push(`/student/${bus.buses_id}`)">
-                                <img class="buses-image" src="../assets/bus-1.png">
-                                <h4>Driver: {{ bus.driver }}</h4>
-                                <h4>Bus#{{ bus.bus_number }}</h4>
-                                <h4>Departure Time: {{ bus.pm_departure_time }}</h4>
+                            <div>
+                                <div class="schoolnotifications" style="font-weight: bold; font-size: 40px; ">Buses</div>
+                                <div class="buses-container">
+                                    <div class="buses-content" v-for="bus in studentbuses"
+                                        @click="$router.push(`/student/${bus.buses_id}`)">
+                                        <img class="buses-image" src="../assets/bus-1.png">
+                                        <div class="studentschoolsbuses">Bus#{{ bus.bus_number }}</div>
+                                        <div>Departure Time: {{ bus.pm_departure_time }}</div>
+                                        <div>Driver: {{ bus.driver }}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -174,21 +179,24 @@ More Contact Options</a>
                     <div class="calendarBar">
                         <img id="calendar-image" src="../assets/calendar3.webp">
                         <div>
-                            <div id="schoolnotifications" style="font-weight: bold; font-size: 30px;">School Notifications</div>
+                            <div class="schoolnotifications" style="font-weight: bold; font-size: 30px;">School
+                                Notifications</div>
                             <div class="notification">
-                                <h4 class="alertTitle">Norton Elementary</h4>
-                                <h4>Thursday, January 25</h4>
-                                <p>8:40am Donuts with Grownups - Gibson</p>
-                                <p>5:00pm Basketball Practice</p>
-                                <p>AM Drama Club</p>
+                                <div class="alertTitle">Norton Elementary</div>
+                                <h4 class="alertSubtitle">Thursday, January 25</h4>
+                                <div>8:40am: Donuts with Grownups - Gibson</div>
+                                <div>5:00pm: Basketball Practice</div>
+                                <div>5:15pm: Drama Club</div>
+                                <div>5:30pm: Swim Practice</div>
+                                <div class="specialalert">February 12th Parent-Teacher Conference! </div>
                             </div>
                             <div class="notification">
-                                <h4 class="alertTitle">Kammerer Middle</h4>
-                                <h4 >Thursday, January 25</h4>
-                                <p>Robotics Club First Day!</p>
-                                <p>8:30am ACCESS Testing</p>
-                                <p>4:30pm Cheer Practice</p>
-                                <h4 id="specialalert">April 1-5 No school, Spring Break</h4>
+                                <div class="alertTitle">Kammerer Middle</div>
+                                <h4 class="alertSubtitle">Thursday, January 25</h4>
+                                <div>Robotics Club First Day!</div>
+                                <div>8:30am: ACCESS Testing</div>
+                                <div>4:30pm: Cheer Practice</div>
+                                <h4 class="specialalert">April 1-5 No school, Spring Break</h4>
                             </div>
                         </div>
                     </div>
@@ -202,12 +210,31 @@ More Contact Options</a>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
 
-div > * {
-  font-family: 'Concert One', sans-serif;
+div>* {
+    font-family: 'Concert One', sans-serif;
 }
+
+.studentschoolsbuses {
+    font-size: xx-large;
+    color: rgb(11, 153, 175);
+}
+
+.student-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 10px;
+}
+
 .alertTitle {
     font-size: 40px;
     font-weight: bold;
+    color: rgb(11, 153, 175);
+}
+
+.alertSubtitle {
+    text-decoration: underline lightgoldenrodyellow;
+    color: #ba9b58;
+
 }
 
 .wrapper {
@@ -279,13 +306,17 @@ div > * {
 
 .calendarBar {
     width: 25%;
-    padding: 16px;
+    padding: 40px;
     height: 60%;
+    margin-right: 90px;
 }
 
 .studentInformation {
-    padding-left: 25px;
+    padding-left: 90px;
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 #calendar-image {
@@ -295,19 +326,22 @@ div > * {
 }
 
 .notification {
-    background-color: rgb(252, 252, 254);
+    background-color: rgb(182, 216, 233);
     border-radius: 10px;
-    border: 2px solid;
+    border: 2px solid lightblue;
     margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 250px;
+    /* width: 250px; */
 }
 
 .student-content {
     background-color: antiquewhite;
     border-radius: 10px;
     padding: 16px;
+    height: 300px;
 }
 
 .student-container {
@@ -317,7 +351,7 @@ div > * {
 }
 
 .school-content {
-    background-color: aqua;
+    background-color: rgb(182, 216, 233);
     border-radius: 10px;
     padding: 16px;
     /* height: 280px; */
@@ -342,10 +376,11 @@ div > * {
 }
 
 .buses-content {
-    padding-top: 25px;
+    /* padding-top: 25px; */
     background-color: beige;
     border-radius: 10px;
     padding: 16px;
+    width: 200px;
 }
 
 .buses-container {
@@ -354,61 +389,77 @@ div > * {
     gap: 16px;
     padding: 16px;
 }
-#specialalert{
+
+.specialalert {
     color: red;
 
 }
-#schoolnotifications{
+
+.schoolnotifications {
     color: rgb(178, 162, 14);
 }
-/* .schoolcard{
 
-} */
-.header{
+.header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-left: 16px;
-    padding-right: 16px;
+    margin-right: 135px;
+    margin-top: 10px;
+    height: 100px;
+    /* margin-bottom: 80px; */
+    /* padding-left: 16px; */
+    /* padding-right: 16px; */
     align-items: center;
+    /* background-color: rgb(187, 243, 243); */
+    border-radius: 15px;
+    background-color: rgb(182, 216, 233);
 }
 
 /* The side navigation menu */
 .sidenav {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #f4d796; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    height: 100%;
+    /* 100% Full-height */
+    width: 0;
+    /* 0 width - change this with JavaScript */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #f4d796;
+    /* Black*/
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 60px;
+    /* Place content 60px from the top */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in the sidenav */
 }
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-  color: #f1f1f1;
+    color: #f1f1f1;
 }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation
@@ -419,7 +470,67 @@ div > * {
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
 }
-</style>
+
+
+/* searchbar */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    background: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid rgb(178, 162, 14);
+    border-right: none;
+    padding: 5px;
+    height: 30px;
+    border-radius: 30px 0 0 30px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus {
+    color: rgb(178, 162, 14);
+}
+
+.searchButton {
+    width: 60px;
+    height: 46px;
+    border: 1px solid rgb(178, 162, 14);
+    background: rgb(178, 162, 14);
+    text-align: center;
+    color: #fff;
+    border-radius: 0 30px 30px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+    width: 15%;
+    position: absolute;
+    top: 4%;
+    left: 60%;
+    /* transform: translate(-50%, -50%); */
+}
+
+#searchicon {
+    height: 20px;
+    width: 20px;
+}</style>

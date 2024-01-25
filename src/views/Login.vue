@@ -22,7 +22,7 @@ function login() {
             <img class="background-pic" src="../assets/2.png" />
         </div>
         <div class="container">
-            <h1> Login</h1>
+            <div class="loginstyle"> Parent Portal</div>
             <input class="textbox" v-model="email" type="text" placeholder="parentportal@email.com"/>
             <input class="textbox" v-model="password" type="password" placeholder="password">
             <button id="loginbutton" @click="login">Login</button>
@@ -36,6 +36,10 @@ function login() {
 
 div > * {
   font-family: 'Concert One', sans-serif;
+}
+.loginstyle{
+    font-size: xxx-large;
+    color: rgb(178, 162, 14);
 }
 .wrapper {
     position: relative;
@@ -67,10 +71,14 @@ div > * {
     width: 15rem;
     height: 2.2rem;
     border-radius: 20px;
+    color: rgb(249, 162, 130);
+    border: solid rgb(249, 162, 130);
 }
 #loginbutton{
     width: 10rem;
     height: 2.0rem;
     border-radius: 10px;
+    background-color: rgb(249, 162, 130);
+    border-color: rgb(249, 162, 130);
 }
 </style>
